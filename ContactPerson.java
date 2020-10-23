@@ -86,4 +86,9 @@ public class ContactPerson {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String toString() {
+		return "Name: " + firstName + " " + lastName + "\tAddress: " + address + "\tcityname: " + city + "\tstatename: "
+				+ state + "\tpin code: " + zip + "\tphonenumber: " + phoneNumber + "\n";
+	}
 }
