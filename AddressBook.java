@@ -105,6 +105,18 @@ public class AddressBook {
 			}
 		}
 	}
+	
+	private void addMultipleContacts()
+	{
+		System.out.println("Enter number of persons to add to Address Book: ");
+		int noOfPersons = sc.nextInt();
+		int count = 1;
+		while(count <= noOfPersons)
+		{
+			addContacts();
+			count++;
+		}
+	}
 
 	public static void main(String[] args) {
 		int choice = 0;
@@ -115,7 +127,8 @@ public class AddressBook {
 			System.out.println("2.Print contacts");
 			System.out.println("3.Edit contacts");
 			System.out.println("4.Delete contact");
-			System.out.println("5.Exit");
+			System.out.println("5.Add multiple persons");
+			System.out.println("6.Exit");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
@@ -131,6 +144,8 @@ public class AddressBook {
 				ab.deleteContact();
 				break;
 			case 5:
+				ab.addMultipleContacts();
+			case 6:
 				System.exit(0);
 			default:
 				System.out.println("Error! Choose right option from the above..");
