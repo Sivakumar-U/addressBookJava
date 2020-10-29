@@ -92,6 +92,20 @@ public class AddressBook {
 		}
 	}
 
+	private void deleteContact() {
+		if (person.isEmpty()) {
+			System.out.println("There are no contacts to delete in the addressbook");
+		} else {
+			System.out.println("Enter firstname to delete the person");
+			String firstName = sc.next();
+			for (int count = 0; count < person.size(); count++) {
+				if (person.get(count).getFirstName().equals(firstName)) {
+					person.remove(person.get(count));
+				}
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
@@ -100,7 +114,8 @@ public class AddressBook {
 			System.out.println("1.Add contacts");
 			System.out.println("2.Print contacts");
 			System.out.println("3.Edit contacts");
-			System.out.println("4.Exit");
+			System.out.println("4.Delete contact");
+			System.out.println("5.Exit");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
@@ -113,6 +128,9 @@ public class AddressBook {
 				ab.editContacts();
 				break;
 			case 4:
+				ab.deleteContact();
+				break;
+			case 5:
 				System.exit(0);
 			default:
 				System.out.println("Error! Choose right option from the above..");
