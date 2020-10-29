@@ -105,17 +105,29 @@ public class AddressBook {
 			}
 		}
 	}
-	
-	private void addMultipleContacts()
-	{
+
+	private void addMultipleContacts() {
 		System.out.println("Enter number of persons to add to Address Book: ");
 		int noOfPersons = sc.nextInt();
 		int count = 1;
-		while(count <= noOfPersons)
-		{
+		while (count <= noOfPersons) {
 			addContacts();
 			count++;
 		}
+	}
+
+	private boolean addressBookWithUniqueName() {
+		System.out.println("FirstName of a person is referred in Address Book");
+		System.out.println("Enter First Name");
+		String firstName = sc.next();
+		for (int count = 0; count < person.size(); count++) {
+			if (person.get(count).getFirstName().equals(firstName)) {
+				System.out.println("Already in AddressBook exists with this name");
+			} else {
+				return true;
+			}
+		}
+		return true;
 	}
 
 	public static void main(String[] args) {
@@ -128,7 +140,7 @@ public class AddressBook {
 			System.out.println("3.Edit contacts");
 			System.out.println("4.Delete contact");
 			System.out.println("5.Add multiple persons");
-			System.out.println("6.Exit");
+			System.out.println("6.Add Unique Contact");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
@@ -146,6 +158,8 @@ public class AddressBook {
 			case 5:
 				ab.addMultipleContacts();
 			case 6:
+				ab.addressBookWithUniqueName();
+			case 7:
 				System.exit(0);
 			default:
 				System.out.println("Error! Choose right option from the above..");
