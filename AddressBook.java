@@ -6,12 +6,6 @@ import java.util.Scanner;
 
 public class AddressBook {
 
-	static final int FIRST = 1;
-	static final int SECOND = 2;
-	static final int THIRD = 3;
-	static final int FOURTH = 4;
-	static final int FIFTH = 5;
-
 	public static List<ContactPerson> person = new ArrayList<ContactPerson>();
 	static Scanner sc = new Scanner(System.in);
 
@@ -52,63 +46,48 @@ public class AddressBook {
 
 	private void editContacts() {
 		if (person.isEmpty()) {
-			System.out.println("There are no contacts to edit");
+			System.out.println("There are no contacts to print");
 		} else {
 			String address, city, state;
-			int phone, zip;
-			int id;
-			for (ContactPerson ab : person) {
-				System.out.println("ID: # " + person.indexOf(ab) + " : " + ab);
+			int zip, id, phoneNumber;
+			for (ContactPerson contact : person) {
+				System.out.println("ID " + person.indexOf(contact) + ":\n" + contact);
 			}
-			System.out.println("Enter ID of contact to Edit : ");
+			System.out.println("Enter ID of contact to edit: ");
 			id = sc.nextInt();
 			System.out.println(person.get(id));
-			System.out
-					.println("please select the option to edit...\n1.Address\n2.city\n3.state\n4.zip\n5.phone number");
+			System.out.println(
+					"Please select the option to edit\n1.Address\n2.City\n3.State\n4.zipCode\n5.Mobile Number");
 			int choice = sc.nextInt();
 			switch (choice) {
-			case FIRST:
+			case 1:
 				System.out.println("Enter Address: ");
 				address = sc.nextLine();
 				person.get(id).setAddress(address);
 				break;
-			case SECOND:
+			case 2:
 				System.out.println("Enter City: ");
 				city = sc.nextLine();
 				person.get(id).setCity(city);
 				break;
-			case THIRD:
+			case 3:
 				System.out.println("Enter State: ");
 				state = sc.nextLine();
 				person.get(id).setState(state);
-			case FOURTH:
-				System.out.println("Enter Zip: ");
+				break;
+			case 4:
+				System.out.println("Enter Zip Code: ");
 				zip = sc.nextInt();
 				person.get(id).setZip(zip);
 				break;
-			case FIFTH:
-				System.out.println("Enter Mobile number: ");
-				phone = sc.nextInt();
-				person.get(id).setPhoneNumber(phone);
+			case 5:
+				System.out.println("Enter Mobile Number: ");
+				phoneNumber = sc.nextInt();
+				person.get(id).setPhoneNumber(phoneNumber);
 				break;
 			default:
-				System.out.println("Please Enter Valid Option: ");
+				System.out.println("Error!! Choose correct Option");
 				editContacts();
-			}
-		}
-
-	}
-
-	private void deleteContact() {
-		if (person.isEmpty()) {
-			System.out.println("There are no contacts to delete");
-		} else {
-			System.out.println("Enter firstname to delete:");
-			String firstName = sc.nextLine();
-			for (int count = 0; count < person.size(); count++) {
-				if (person.get(count).getFirstName().equals(firstName)) {
-					person.remove(person.get(count));
-				}
 			}
 		}
 	}
@@ -117,12 +96,11 @@ public class AddressBook {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
 		AddressBook ab = new AddressBook();
-		while (choice < 5) {
+		while (choice <= 5) {
 			System.out.println("1.Add contacts");
 			System.out.println("2.Print contacts");
 			System.out.println("3.Edit contacts");
-			System.out.println("4.Delete contacts");
-			System.out.println("5.Exit");
+			System.out.println("4.Exit");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
@@ -135,8 +113,9 @@ public class AddressBook {
 				ab.editContacts();
 				break;
 			case 4:
-				ab.deleteContact();
-				break;
+				System.exit(0);
+			default:
+				System.out.println("Error! Choose right option from the above..");
 			}
 		}
 
