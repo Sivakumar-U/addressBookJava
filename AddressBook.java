@@ -159,6 +159,14 @@ public class AddressBook {
 		}
 	}
 
+	public void searchPersonInACity() {
+		System.out.println("Enter the city to search");
+		String city = sc.next();
+		person.stream().filter(element -> element.getCity().equals(city))
+				.forEach(i -> System.out.println("Person Found : " + i.firstName));
+
+	}
+
 	public static void main(String[] args) {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
@@ -171,6 +179,8 @@ public class AddressBook {
 			System.out.println("5.Add multiple persons");
 			System.out.println("6.Add Unique Contact");
 			System.out.println("7.Display Adress Book Record");
+			System.out.println("8.Search Person In a City");
+			System.out.println("9.Exit");
 
 			choice = sc.nextInt();
 			switch (choice) {
@@ -196,6 +206,9 @@ public class AddressBook {
 				ab.displayAddressBookRecord();
 				break;
 			case 8:
+				ab.searchPersonInACity();
+				break;
+			case 9:
 				System.exit(0);
 				break;
 			default:
