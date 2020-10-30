@@ -178,6 +178,15 @@ public class AddressBook {
 		}
 	}
 
+	public void getPersonsCountByCity() {
+		System.out.println("Enter the city to search: ");
+		String city = sc.next();
+
+		long count = person.stream().filter(element -> element.getCity().equals(city)).count();
+		System.out.println("Number of Persons By City : " + count);
+
+	}
+
 	public static void main(String[] args) {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
@@ -192,7 +201,8 @@ public class AddressBook {
 			System.out.println("7.Display Adress Book Record");
 			System.out.println("8.Search Person In a City");
 			System.out.println("9.View person By city");
-			System.out.println("10.Exit");
+			System.out.println("10.Get Persons Count By City");
+			System.out.println("11.Exit");
 
 			choice = sc.nextInt();
 			switch (choice) {
@@ -224,8 +234,10 @@ public class AddressBook {
 				ab.viewPersonsByCity();
 				break;
 			case 10:
-				System.exit(0);
+				ab.getPersonsCountByCity();
 				break;
+			case 11:
+				System.exit(0);
 			default:
 				System.out.println("Error! Choose right option from the below..");
 				break;
