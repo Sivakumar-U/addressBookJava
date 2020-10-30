@@ -11,6 +11,7 @@ public class AddressBook {
 	public static List<ContactPerson> person = new ArrayList<ContactPerson>();
 	public static List<AddressBookNew> listBookName = new ArrayList<>();
 	public static Map<Integer, String> listBooks = new HashMap<>();
+	public static Map<String, String> personsByCity = new HashMap<>();
 	boolean result;
 
 	static Scanner sc = new Scanner(System.in);
@@ -167,6 +168,16 @@ public class AddressBook {
 
 	}
 
+	public void viewPersonsByCity() {
+		System.out.println("Enter the city to search: ");
+		String city = sc.next();
+		person.stream().filter(element -> element.getCity().equals(city))
+				.forEach(i -> personsByCity.put(i.firstName, city));
+		for (Map.Entry m : personsByCity.entrySet()) {
+			System.out.println(m.getKey() + " : " + m.getValue());
+		}
+	}
+
 	public static void main(String[] args) {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
@@ -180,7 +191,8 @@ public class AddressBook {
 			System.out.println("6.Add Unique Contact");
 			System.out.println("7.Display Adress Book Record");
 			System.out.println("8.Search Person In a City");
-			System.out.println("9.Exit");
+			System.out.println("9.View person By city");
+			System.out.println("10.Exit");
 
 			choice = sc.nextInt();
 			switch (choice) {
@@ -209,6 +221,9 @@ public class AddressBook {
 				ab.searchPersonInACity();
 				break;
 			case 9:
+				ab.viewPersonsByCity();
+				break;
+			case 10:
 				System.exit(0);
 				break;
 			default:
