@@ -1,12 +1,18 @@
 package com.blz.addressbook;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AddressBook {
 
 	public static List<ContactPerson> person = new ArrayList<ContactPerson>();
+	public static List<AddressBookNew> listBookName = new ArrayList<>();
+	public static Map<Integer, String> listBooks = new HashMap<>();
+	boolean result;
+
 	static Scanner sc = new Scanner(System.in);
 
 	private void addContacts() {
@@ -116,31 +122,56 @@ public class AddressBook {
 		}
 	}
 
-	private boolean addressBookWithUniqueName() {
-		System.out.println("FirstName of a person is referred in Address Book");
-		System.out.println("Enter First Name");
-		String firstName = sc.next();
-		for (int count = 0; count < person.size(); count++) {
-			if (person.get(count).getFirstName().equals(firstName)) {
-				System.out.println("Already in AddressBook exists with this name");
-			} else {
-				return true;
+	private void addressBookWithUniqueName() {
+		System.out.println("Enter the Address Book Id and Name : ");
+		int id = sc.nextInt();
+		String name = sc.next();
+		AddressBookNew books = new AddressBookNew(id, name);
+
+		if (listBookName.isEmpty()) {
+			System.out.println("check");
+			listBookName.add(books);
+			listBooks.put(id, name);
+			System.out.println("Address Book Added Successfully: ");
+			for (AddressBookNew i : listBookName) {
+				System.out.println(i.bookName);
 			}
+		} else {
+			for (int i = 0; i < listBookName.size(); i++) {
+				if (listBookName.get(i).getBookName().equals(name)) {
+					result = listBookName.get(i).getBookName().equals(name);
+					System.out.println("Address Book Already Exists");
+					break;
+				}
+			}
+			if (!result) {
+				listBookName.add(books);
+				listBooks.put(id, name);
+				System.out.println("Address Book Added Successfully: ");
+			}
+
 		}
-		return true;
+	}
+
+	public void displayAddressBookRecord() {
+		for (Map.Entry m : listBooks.entrySet()) {
+			System.out.println(m.getKey() + " " + m.getValue());
+		}
 	}
 
 	public static void main(String[] args) {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
 		AddressBook ab = new AddressBook();
-		while (choice <= 5) {
+		while (true) {
 			System.out.println("1.Add contacts");
 			System.out.println("2.Print contacts");
 			System.out.println("3.Edit contacts");
 			System.out.println("4.Delete contact");
 			System.out.println("5.Add multiple persons");
 			System.out.println("6.Add Unique Contact");
+			System.out.println("7.Display Adress Book Record");
+
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
@@ -157,12 +188,19 @@ public class AddressBook {
 				break;
 			case 5:
 				ab.addMultipleContacts();
+				break;
 			case 6:
 				ab.addressBookWithUniqueName();
+				break;
 			case 7:
+				ab.displayAddressBookRecord();
+				break;
+			case 8:
 				System.exit(0);
+				break;
 			default:
-				System.out.println("Error! Choose right option from the above..");
+				System.out.println("Error! Choose right option from the below..");
+				break;
 			}
 		}
 
