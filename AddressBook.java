@@ -3,8 +3,10 @@ package com.blz.addressbook;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBook {
 
@@ -12,6 +14,7 @@ public class AddressBook {
 	public static List<AddressBookNew> listBookName = new ArrayList<>();
 	public static Map<Integer, String> listBooks = new HashMap<>();
 	public static Map<String, String> personsByCity = new HashMap<>();
+	List<ContactPerson> sortWithPersonName = new ArrayList<ContactPerson>();
 	boolean result;
 
 	static Scanner sc = new Scanner(System.in);
@@ -187,6 +190,18 @@ public class AddressBook {
 
 	}
 
+	public void sortByAlphabeticalPersonName() {
+
+		if (person.isEmpty()) {
+			System.out.println("Address Book List is Empty Cannot Sort");
+		} else {
+			sortWithPersonName = person.stream().sorted(Comparator.comparing(ContactPerson::getFirstName))
+					.collect(Collectors.toList());
+			System.out.println("List Sorted Successfully" + sortWithPersonName);
+		}
+
+	}
+
 	public static void main(String[] args) {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
@@ -202,7 +217,8 @@ public class AddressBook {
 			System.out.println("8.Search Person In a City");
 			System.out.println("9.View person By city");
 			System.out.println("10.Get Persons Count By City");
-			System.out.println("11.Exit");
+			System.out.println("11.Sort With Person Name");
+			System.out.println("12.Exit");
 
 			choice = sc.nextInt();
 			switch (choice) {
@@ -237,6 +253,9 @@ public class AddressBook {
 				ab.getPersonsCountByCity();
 				break;
 			case 11:
+				ab.sortByAlphabeticalPersonName();
+				break;
+			case 12:
 				System.exit(0);
 			default:
 				System.out.println("Error! Choose right option from the below..");
