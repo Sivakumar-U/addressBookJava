@@ -202,6 +202,17 @@ public class AddressBook {
 
 	}
 
+	public void sortByCity() {
+		if (person.isEmpty()) {
+			System.out.println("Address Book List is Empty Cannot Sort");
+		} else {
+			List<ContactPerson> sortByCity = person.stream().sorted(Comparator.comparing(ContactPerson::getCity))
+					.collect(Collectors.toList());
+			System.out.println("List Sorted Successfully" + sortByCity);
+		}
+
+	}
+
 	public static void main(String[] args) {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
@@ -218,7 +229,8 @@ public class AddressBook {
 			System.out.println("9.View person By city");
 			System.out.println("10.Get Persons Count By City");
 			System.out.println("11.Sort With Person Name");
-			System.out.println("12.Exit");
+			System.out.println("12.Sort By city");
+			System.out.println("13.Exit");
 
 			choice = sc.nextInt();
 			switch (choice) {
@@ -256,6 +268,9 @@ public class AddressBook {
 				ab.sortByAlphabeticalPersonName();
 				break;
 			case 12:
+				ab.sortByCity();
+				break;
+			case 13:
 				System.exit(0);
 			default:
 				System.out.println("Error! Choose right option from the below..");
