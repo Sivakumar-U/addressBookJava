@@ -172,6 +172,19 @@ public class AddressBook {
 		}
 	}
 
+	private boolean checkDuplicateEntry() {
+		System.out.println("Enter your name");
+		String name = sc.next();
+		for (int count = 0; count < person.size(); count++) {
+			if (person.get(count).getFirstName().equals(name)) {
+				System.out.println("Already an AddressBook exist with this name");
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public void displayAddressBookRecord() {
 		for (Map.Entry m : listBooks.entrySet()) {
 			System.out.println(m.getKey() + " " + m.getValue());
@@ -238,8 +251,7 @@ public class AddressBook {
 	public void readDataFromFile() {
 		System.out.println("Enter address book name: ");
 		String addressBookFile = sc.nextLine();
-		Path filePath = Paths
-				.get("C:\\Users\\Siva Reddy\\eclipse-workspace\\AddressBook" + addressBookFile + ".txt");
+		Path filePath = Paths.get("C:\\Users\\Siva Reddy\\eclipse-workspace\\AddressBook" + addressBookFile + ".txt");
 		try {
 			Files.lines(filePath).map(line -> line.trim()).forEach(line -> System.out.println(line));
 		} catch (IOException e) {
@@ -258,12 +270,13 @@ public class AddressBook {
 			System.out.println("4.Delete contact");
 			System.out.println("5.Add multiple persons");
 			System.out.println("6.Add Unique Contact");
-			System.out.println("7.Display Adress Book Record");
-			System.out.println("8.Search Person In a City");
-			System.out.println("9.View person By city");
-			System.out.println("10.Get Persons Count By City");
-			System.out.println("11.Sort With Person Name");
-			System.out.println("12.Sort By city");
+			System.out.println("7.Check Duplicate Entry");
+			System.out.println("8.Display Adress Book Record");
+			System.out.println("9.Search Person In a City");
+			System.out.println("10.View person By city");
+			System.out.println("11.Get Persons Count By City");
+			System.out.println("12.Sort With Person Name");
+			System.out.println("13.Sort By city");
 
 			choice = sc.nextInt();
 			switch (choice) {
@@ -286,21 +299,24 @@ public class AddressBook {
 				ab.addressBookWithUniqueName();
 				break;
 			case 7:
-				ab.displayAddressBookRecord();
+				ab.checkDuplicateEntry();
 				break;
 			case 8:
-				ab.searchPersonInACity();
+				ab.displayAddressBookRecord();
 				break;
 			case 9:
-				ab.viewPersonsByCity();
+				ab.searchPersonInACity();
 				break;
 			case 10:
-				ab.getPersonsCountByCity();
+				ab.viewPersonsByCity();
 				break;
 			case 11:
-				ab.sortByAlphabeticalPersonName();
+				ab.getPersonsCountByCity();
 				break;
 			case 12:
+				ab.sortByAlphabeticalPersonName();
+				break;
+			case 13:
 				ab.sortByCity();
 				break;
 			default:
