@@ -2,6 +2,10 @@ package com.blz.addressbook;
 
 import java.util.List;
 import java.util.Map;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,6 +23,15 @@ public class AddressBook {
 
 	static Scanner sc = new Scanner(System.in);
 
+	public enum IOService {
+		CONSOLE_IO, FILE_IO, DB_IO, REST_IO
+	}
+
+	public AddressBook(List<ContactPerson> personList) {
+		super();
+		this.person = personList;
+	}
+
 	private void addContacts() {
 		System.out.println("Enter contact details");
 		System.out.println("Enter FirstName:");
@@ -32,9 +45,9 @@ public class AddressBook {
 		System.out.println("Enter State:");
 		String state = sc.next();
 		System.out.println("Enter Zip:");
-		int zip = sc.nextInt();
+		String zip = sc.next();
 		System.out.println("Enter PhoneNumber:");
-		int phoneNumber = sc.nextInt();
+		String phoneNumber = sc.next();
 		System.out.println("Enter Email:");
 		String email = sc.next();
 		ContactPerson contact = new ContactPerson(firstName, lastName, address, city, state, zip, phoneNumber, email);
@@ -59,7 +72,9 @@ public class AddressBook {
 			System.out.println("There are no contacts to print");
 		} else {
 			String address, city, state;
-			int zip, id, phoneNumber;
+			String zip;
+			int id;
+			String phoneNumber;
 			for (ContactPerson contact : person) {
 				System.out.println("ID " + person.indexOf(contact) + ":\n" + contact);
 			}
@@ -87,12 +102,12 @@ public class AddressBook {
 				break;
 			case 4:
 				System.out.println("Enter Zip Code: ");
-				zip = sc.nextInt();
+				zip = sc.next();
 				person.get(id).setZip(zip);
 				break;
 			case 5:
 				System.out.println("Enter Mobile Number: ");
-				phoneNumber = sc.nextInt();
+				phoneNumber = sc.next();
 				person.get(id).setPhoneNumber(phoneNumber);
 				break;
 			default:
@@ -213,10 +228,29 @@ public class AddressBook {
 
 	}
 
+	public static void writeAddressBookData(IOService ioService) {
+		if (ioService.equals(AddressBook.IOService.CONSOLE_IO))
+			System.out.println("Employee Payroll to Details : " + person);
+		if (ioService.equals(AddressBook.IOService.FILE_IO))
+			new AddressBookFileIOService().writeData(person);
+	}
+
+	public void readDataFromFile() {
+		System.out.println("Enter address book name: ");
+		String addressBookFile = sc.nextLine();
+		Path filePath = Paths
+				.get("C:\\Users\\Siva Reddy\\eclipse-workspace\\AddressBook" + addressBookFile + ".txt");
+		try {
+			Files.lines(filePath).map(line -> line.trim()).forEach(line -> System.out.println(line));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) {
 		int choice = 0;
 		System.out.println("Hello there...Welcome to address book problem");
-		AddressBook ab = new AddressBook();
+		AddressBook ab = new AddressBook(person);
 		while (true) {
 			System.out.println("1.Add contacts");
 			System.out.println("2.Print contacts");
@@ -230,7 +264,6 @@ public class AddressBook {
 			System.out.println("10.Get Persons Count By City");
 			System.out.println("11.Sort With Person Name");
 			System.out.println("12.Sort By city");
-			System.out.println("13.Exit");
 
 			choice = sc.nextInt();
 			switch (choice) {
@@ -270,8 +303,6 @@ public class AddressBook {
 			case 12:
 				ab.sortByCity();
 				break;
-			case 13:
-				System.exit(0);
 			default:
 				System.out.println("Error! Choose right option from the below..");
 				break;
